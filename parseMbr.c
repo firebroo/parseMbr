@@ -266,4 +266,7 @@ main (int argc, char *argv[])
     if (!is_mbr_partition (buf))
         die ("is not a mbr.\n");
     parse_mbr_partition (buf);
+    close (fd);
+
+    return 0;
 }
