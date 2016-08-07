@@ -20,109 +20,109 @@ enum mbr_status {
 };
 
 enum partition_type {
-    Empty = 0x00,               
-    FAT12,                
-    XENIX_root,           
-    XENIX_usr,            
-    FAT16_32M,           
-    Extended,            
-    FAT16,                
-    HPFS_NTFS_exFAT,      
-    AIX,                  
-    AIX_bootable,        
-    OS_2_Boot_Manag,      
-    W95_FAT32,            
-    W95_FAT32_LBA,      
-    W95_FAT16_LBA,      
-    W95_Ext_LBA,      
-    OPUS,                 
-    Hidden_FAT12,         
-    Compaq_diagnost,      
-    Hidden_FAT16_1,      
-    Hidden_FAT16_2,         
-    Hidden_HPFS_NTF,      
-    AST_SmartSleep,       
-    Hidden_W95_FAT3_1,      
-    Hidden_W95_FAT3_2,      
-    Hidden_W95_FAT1, 
-    NEC_DOS = 0x24,        
+    Empty = 0x00,
+    FAT12,
+    XENIX_root,
+    XENIX_usr,
+    FAT16_32M,
+    Extended,
+    FAT16,
+    HPFS_NTFS_exFAT,
+    AIX,
+    AIX_bootable,
+    OS_2_Boot_Manag,
+    W95_FAT32,
+    W95_FAT32_LBA,
+    W95_FAT16_LBA,
+    W95_Ext_LBA,
+    OPUS,
+    Hidden_FAT12,
+    Compaq_diagnost,
+    Hidden_FAT16_1,
+    Hidden_FAT16_2,
+    Hidden_HPFS_NTF,
+    AST_SmartSleep,
+    Hidden_W95_FAT3_1,
+    Hidden_W95_FAT3_2,
+    Hidden_W95_FAT1,
+    NEC_DOS = 0x24,
     Hidden_NTFS_Win,
-    Plan,          
-    PartitionMagic, 
-    Venix_80286,    
-    PPC_PReP_Boot,  
-    SFS,            
-    QNX4_x,         
+    Plan,
+    PartitionMagic,
+    Venix_80286,
+    PPC_PReP_Boot,
+    SFS,
+    QNX4_x,
     QNX4_x_2nd_part,
     QNX4_x_3rd_part,
-    OnTrack_DM,     
+    OnTrack_DM,
     OnTrack_DM6_Aux_1,
-    CP_M,           
+    CP_M,
     OnTrack_DM6_Aux_2,
-    OnTrackDM6,     
-    EZ_Drive,       
-    Golden_Bow,     
-    Priam_Edisk,    
-    SpeedStor,      
+    OnTrackDM6,
+    EZ_Drive,
+    Golden_Bow,
+    Priam_Edisk,
+    SpeedStor,
     GNU_HURD_or_Sys,
-    Novell_Netware_1, 
-    Novell_Netware_2, 
+    Novell_Netware_1,
+    Novell_Netware_2,
     DiskSecure_Mult,
-    PC_IX,          
+    PC_IX,
     Old_Minix,
     Minix_old_Lin = 0x81,
     Linux_swap_So,
-    Linux,          
-    OS_2_hidden_C, 
-    Linux_extended, 
+    Linux,
+    OS_2_hidden_C,
+    Linux_extended,
     NTFS_volume_set_1,
     NTFS_volume_set_2,
     Linux_plaintext,
-    Linux_LVM,      
-    Amoeba,         
-    Amoeba_BBT,     
-    BSD_OS,         
+    Linux_LVM,
+    Amoeba,
+    Amoeba_BBT,
+    BSD_OS,
     IBM_Thinkpad_hi,
-    FreeBSD,        
-    OpenBSD,        
-    NeXTSTEP,      
-    Darwin_UFS,     
-    NetBSD,         
-    Darwin_boot,    
-    HFS_HFS,     
-    BSDI_fs,        
-    BSDI_swap,      
+    FreeBSD,
+    OpenBSD,
+    NeXTSTEP,
+    Darwin_UFS,
+    NetBSD,
+    Darwin_boot,
+    HFS_HFS,
+    BSDI_fs,
+    BSDI_swap,
     Boot_Wizard_hid,
-    Solaris_boot,   
-    Solaris = 0xbf,        
+    Solaris_boot,
+    Solaris = 0xbf,
     DRDOS_sec_FAT_1,
     DRDOS_sec_FAT_2,
     DRDOS_sec_FAT_3,
-    Syrinx,        
-    Non_FS_data,   
+    Syrinx,
+    Non_FS_data,
     CP_M_TOS,
-    Dell_Utility,   
-    BootIt,         
-    DOS_access,     
-    DOS_R_O,        
-    SpeedStor_1,      
-    BeOS_fs,        
-    GPT,            
+    Dell_Utility,
+    BootIt,
+    DOS_access,
+    DOS_R_O,
+    SpeedStor_1,
+    BeOS_fs,
+    GPT,
     EFI_FAT_12_16,
     Linux_PA_RISC_b,
-    SpeedStor_2,      
-    SpeedStor_3,      
-    DOS_secondary,  
-    VMware_VMFS,    
-    VMware_VMKCORE, 
+    SpeedStor_2,
+    SpeedStor_3,
+    DOS_secondary,
+    VMware_VMFS,
+    VMware_VMKCORE,
     Linux_raid_auto,
-    LANstep,        
+    LANstep,
     BBT
 };
 
 typedef struct partition_entry {
     unsigned char         status_and_physical_driver;
-    unsigned char         chs_address_first_absolute_sector[3]; 
+    unsigned char         chs_address_first_absolute_sector[3];
     unsigned char         partition_type;
     unsigned char         chs_address_last_absolute_sector[3];
     unsigned int          label_first_absolute_sector;
@@ -161,13 +161,13 @@ parse_chs (unsigned char *chs)
 void
 parse_mbr_partition (unsigned char *mbr)
 {
-    int                 i; 
+    int                 i;
     enum partition_type partition_type;
     enum mbr_status     status;
-    partition_entry_t  *partition_entry;     
+    partition_entry_t  *partition_entry;
 
     for (i = 0; i < MBR_PARTITION_ENTRY_NUM; i++) {
-        partition_entry = (partition_entry_t*)(mbr + MBR_PARTITION_START_PTR + i * MBR_PARTITION_ENTRY_SIZE); 
+        partition_entry = (partition_entry_t*)(mbr + MBR_PARTITION_START_PTR + i * MBR_PARTITION_ENTRY_SIZE);
 
         status = partition_entry->status_and_physical_driver;
         switch (status) {
@@ -185,7 +185,7 @@ parse_mbr_partition (unsigned char *mbr)
         partition_type = partition_entry->partition_type;
         printf("partion %i's type: hexvalue=%02x(", i + 1, partition_type);
         switch (partition_type) {
-       
+
         case HPFS_NTFS_exFAT:
             printf ("windows NTFS type");
             break;
@@ -210,11 +210,11 @@ parse_mbr_partition (unsigned char *mbr)
         parse_chs (partition_entry->chs_address_first_absolute_sector);
         printf ("last absolute sector: ");
         parse_chs (partition_entry->chs_address_last_absolute_sector);
-        printf ("absolute sector Strart: %d\tEnd: %d", 
+        printf ("absolute sector Strart: %d\tEnd: %d",
                 partition_entry->label_first_absolute_sector,
-                partition_entry->label_first_absolute_sector + 
+                partition_entry->label_first_absolute_sector +
                 partition_entry->number_sector - 1);
-        printf ("\tSector Number: %d\tSize: %fGB\n", 
+        printf ("\tSector Number: %d\tSize: %fGB\n",
                 partition_entry->number_sector,
                 (partition_entry->number_sector) / 1024.0 / 1024.0 / 1024.0 * MBR_SECTOR_SIZE);
         printf ("\n");
@@ -238,7 +238,7 @@ check_argv(int argc, char *argv[])
         }
     }
 end:
-    printf("Usage: ./parseMbr <-f mbr.bin>\n");
+    printf("Usage: ./parseMbr <-f disk>\n");
     exit(-1);
 
 }
@@ -250,10 +250,10 @@ main (int argc, char *argv[])
     int            fd;
     int            ret;
     unsigned char  buf[MBR_SECTOR_SIZE];
-    char          *mbr_bin;
+    char          *disk;
 
-    mbr_bin = check_argv (argc, argv);
-    fd = open (mbr_bin, O_RDONLY);
+    disk = check_argv (argc, argv);
+    fd = open (disk, O_RDONLY);
     if (fd < 0)
         die ("open error");
     if ( (ret = read (fd, buf, MBR_SECTOR_SIZE) == 0) ) {

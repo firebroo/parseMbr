@@ -8,7 +8,6 @@
 ## Use
 /dev/sdx is your bootLoader'device
 
-1. dd if=/dev/sdx of=mbr.bin bs=512 count=1
-2. parseMbr -f mbr.bin 
+1. parseMbr -f /dev/sdx
 
 
